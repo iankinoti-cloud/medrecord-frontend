@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   AEGEAN MEDICAL DESIGN SYSTEM — Tailwind v4 Theme Tokens
+   All Persons import shared tokens from here. Never duplicate these.
+   ────────────────────────────────────────────────────────────── */
+@theme {
+  /* Brand colors */
+  --color-aegean-900: #0A3456;
+  --color-aegean-800: #0F4C75;
+  --color-aegean-700: #1B6CA8;
+  --color-aegean-600: #2980B9;
+  --color-aegean-500: #3498DB;
+
+  --color-teal-700: #0E8A72;
+  --color-teal-600: #16A085;
+  --color-teal-500: #1ABC9C;
+  --color-teal-100: #D1F5EF;
+
+  --color-coral-600: #C0392B;
+  --color-coral-500: #E74C3C;
+  --color-coral-100: #FDECEA;
+  --color-coral-200: #FABEBB;
+
+  --color-amber-600: #D68910;
+  --color-amber-500: #F39C12;
+  --color-amber-100: #FEF9E7;
+  --color-amber-200: #FAD7A0;
+
+  --color-emerald-600: #1E8449;
+  --color-emerald-500: #27AE60;
+  --color-emerald-100: #D5F5E3;
+  --color-emerald-200: #A9DFBF;
+
+  --color-surface:  #FFFFFF;
+  --color-cloud:    #F0F4F8;
+  --color-muted:    #7F8C8D;
+  --color-midnight: #2C3E50;
+  --color-border:   #E2E8F0;
+  --color-silver:   #BDC3C7;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+
+  /* Shadows */
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-modal:   0 20px 60px rgba(0,0,0,0.15);
+  --shadow-sidebar: 2px 0 8px rgba(0,0,0,0.08);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   CSS Custom Properties — for raw CSS usage outside Tailwind
+   ────────────────────────────────────────────────────────────── */
+:root {
+  --sidebar-width: 240px;
+}
+
+/* ── Base resets ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-cloud);
+  color: var(--color-midnight);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--color-cloud); }
+::-webkit-scrollbar-thumb  { background: var(--color-silver); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid var(--color-aegean-700);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Animated fade-in ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.25s ease-out; }
+
+/* ── StatusPage esoteric animations ─────────────────────────── */
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.2; transform: scale(0.55); }
+  50%       { opacity: 1;   transform: scale(1.25); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes popIn {
+  0%   { transform: scale(0.4); opacity: 0; }
+  65%  { transform: scale(1.18); opacity: 1; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+@keyframes glowPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(26,188,156,0.45); }
+  70%  { box-shadow: 0 0 0 10px rgba(26,188,156,0); }
+  100% { box-shadow: 0 0 0 0   rgba(26,188,156,0); }
+}
+
+.sk-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 0%,
+    rgba(255,255,255,0.09) 50%,
+    rgba(255,255,255,0.03) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.7s infinite linear;
+}
+.animate-breathe       { animation: breathe 2.4s ease-in-out infinite; }
+.animate-fade-slide-up { animation: fadeSlideUp 0.55s ease-out both; }
+.animate-pop-in        { animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.animate-glow-pulse    { animation: glowPulse 0.7s ease-out; }
+
+/* ── Card scroll-float animations ────────────────────────────── */
+/* cardEnter fires once on viewport entry; cardFloat loops with a 0.7s delay after */
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateY(50px); }
+  to   { opacity: 1; transform: translateY(0px);  }
+}
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0px);   }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── Light-mode skeleton shimmer ─────────────────────────────── */
+.sk-shimmer-light {
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.04) 0%,
+    rgba(0,0,0,0.10) 50%,
+    rgba(0,0,0,0.04) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.7s infinite linear;
+}
