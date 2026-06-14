@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from 'react';
 
-const PatientTable = () => {
+const PatientTable = ({onSelectPatient}) => {
     const[searchTerm,setSearchTerm]=useState('');
     const[debouncedSearch, setDebouncedSearch]= useState("");
     const allPatients = [
@@ -69,8 +69,8 @@ const PatientTable = () => {
                                 <tr
                                 key={patient.id}
                                 className="hover:bg-gray-50 cursor-pointer transition-colors"
-                                onClick={()=> alert("Navigating to profile of ${patient.name}...")} 
-                                >
+                                onClick={()=> onSelectPatient(patient.id)}
+                                >                                
                                     <td className="px-6 py-4 font-medium text-blue-600 whitespace-nowrap">{patient.id}</td>
                                     <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{patient.name}</td>
                                     <td className="px-6 py-4 text-gray-600">{patient.age}</td>
