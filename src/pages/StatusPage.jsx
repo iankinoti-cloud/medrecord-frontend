@@ -103,7 +103,7 @@ const CHECK_GROUPS = [
 ]
 
 // ── Theme tokens ──────────────────────────────────────────────
-// Preference persisted to localStorage under key 'hrms_theme'
+// Preference is persisted to localStorage under the key 'hrms_theme'
 const THEMES = {
   dark: {
     pageBg: (mx, my) => `
@@ -193,13 +193,13 @@ const ACCENT = {
 }
 
 // ── Float durations — each card has its own organic rhythm ────
-// Intentionally unsynchronised so cards never bob in unison
+// Intentionally unsynchronised so no two cards ever bob in unison
 const FLOAT_DUR = ['2.8s', '3.3s', '3.8s', '4.2s']
 
 const SK_WIDTHS = ['68%','54%','80%','61%','74%','50%','66%','78%','57%','71%','83%','59%','75%','63%']
 
 // ── Scroll-triggered float hook ───────────────────────────────
-// threshold 0.08 fires early so the animation starts before the card is fully visible
+// threshold 0.08 fires early enough that the float starts while card is still entering view
 function useScrollFloat() {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)

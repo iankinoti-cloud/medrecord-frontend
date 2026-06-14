@@ -134,7 +134,7 @@ body {
 .animate-glow-pulse    { animation: glowPulse 0.7s ease-out; }
 
 /* ── Card scroll-float animations ────────────────────────────── */
-/* cardEnter fires once on viewport entry; cardFloat loops with a 0.7s delay after */
+/* cardEnter fires once on viewport entry; cardFloat loops with a 0.7s delay after entry completes */
 @keyframes cardEnter {
   from { opacity: 0; transform: translateY(50px); }
   to   { opacity: 1; transform: translateY(0px);  }
