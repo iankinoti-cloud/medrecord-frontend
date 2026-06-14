@@ -437,7 +437,7 @@ export function StatusPage() {
   const [countdown, setCountdown]   = useState(15)
   const [isChecking, setIsChecking] = useState(false)
   const [mouse, setMouse]           = useState({ x: 50, y: 40 })
-  const [dark, setDark]             = useState(() => {
+  const [dark, setDark] = useState(() => {
     try { return localStorage.getItem('hrms_theme') !== 'light' } catch { return true }
   })
 
