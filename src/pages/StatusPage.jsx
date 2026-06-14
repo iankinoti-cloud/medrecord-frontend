@@ -41,7 +41,7 @@ async function probeTestFile(importFn) {
 // ── Check definitions ─────────────────────────────────────────
 const CHECK_GROUPS = [
   {
-    person: 'IAN KINOTI — Foundation',
+    person: 'IAN KINOTI  —  Foundation',
     role:   'Backend + Shared UI',
     color:  'aegean',
     checks: [
