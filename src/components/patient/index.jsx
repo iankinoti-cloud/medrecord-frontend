@@ -13,10 +13,20 @@
  *   { id, test_type, report_id, file_url, status, created_at, uploader_name }
  */
 
-import React from 'react'
+import React,{use} from 'react';
 import StatCards from './StatCards'
 import PatientTable from './PatientTable'
+import PatientDetailView from './PatientDetailView'
 export function PatientDetailStub() {
+  const[selectedPatient, setSelectedPatient] = useState(null);
+  if (selectedPatient) {
+    return (
+      <PatientDetailView
+        patientId={selectedPatientId}
+        onBack={() => setSelectedPatient(null)}
+      />
+    );
+  }
   return (
     <div className="w-full space-y-6">
       <div>
@@ -24,7 +34,7 @@ export function PatientDetailStub() {
         <p className="text-sm text-gray-500 mt-1">Manage, search, and view comprehensive patient clinical structure.</p>
     </div>
     <StatCards />
-    <PatientTable />
+    <PatientTable onSelectPatient={(id) => setSelectedPatient(id)} />
     </div>
   );
 }
