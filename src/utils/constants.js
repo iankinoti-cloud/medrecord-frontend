@@ -1,6 +1,6 @@
 export const ROLES = {
   DOCTOR:      'Doctor',
-  LAB_TECH:    'Lab Technician',
+  LAB_TECH:    'LabTechnician',
   ADMIN:       'Admin',
 }
 
