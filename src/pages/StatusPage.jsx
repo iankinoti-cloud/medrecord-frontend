@@ -208,7 +208,7 @@ function useScrollFloat() {
     if (!el) return
     const io = new IntersectionObserver(
       ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
     )
     io.observe(el)
     return () => io.disconnect()
