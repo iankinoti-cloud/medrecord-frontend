@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { API_BASE_URL } from '../utils/constants'
 
 // ── Probe functions ───────────────────────────────────────────
-// GET requests must not send Content-Type — it triggers CORS preflight and silently fails
+// GET requests must not send Content-Type — triggers CORS preflight which silently drops the request
 async function probeEndpoint(method, path, body) {
   try {
     const controller = new AbortController()
