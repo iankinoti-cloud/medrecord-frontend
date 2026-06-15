@@ -14,7 +14,7 @@
  */
 
 import  { useState } from 'react'
-import StatCards from './StatCards'
+import StatCards from './DashboardStatCards'
 import PatientTable from './PatientTable'
 import seededPatients from './mockPatients'
 
