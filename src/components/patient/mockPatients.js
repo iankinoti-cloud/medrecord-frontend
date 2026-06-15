@@ -1,0 +1,66 @@
+// Shared mock patient data mirroring backend seed.py PATIENTS
+
+const seededPatients = [
+  {
+    patient_id: 'P-0001',
+    full_name: 'Aisha Mohammed',
+    date_of_birth: '1986-03-12',
+    gender: 'Female',
+    blood_type: 'O+',
+    address: '12 Nairobi Ave, Nairobi',
+    contact_phone: '+254700111222',
+    contact_email: 'aisha.mohammed@example.com',
+    emergency_contact: 'Omar Mohammed (+254700333444)',
+    status: 'Active',
+  },
+  {
+    patient_id: 'P-0002',
+    full_name: 'John Okello',
+    date_of_birth: '1974-11-05',
+    gender: 'Male',
+    blood_type: 'A-',
+    address: '34 Kisumu Rd, Kisumu',
+    contact_phone: '+254701222333',
+    contact_email: 'john.okello@example.com',
+    emergency_contact: 'Mercy Okello (+254701555666)',
+    status: 'In ER',
+  },
+  {
+    patient_id: 'P-0003',
+    full_name: 'Grace Kamau',
+    date_of_birth: '1992-07-21',
+    gender: 'Female',
+    blood_type: 'B+',
+    address: '78 Mombasa St, Mombasa',
+    contact_phone: '+254702333444',
+    contact_email: 'grace.kamau@example.com',
+    emergency_contact: 'Peter Kamau (+254702777888)',
+    status: 'Pending Lab',
+  },
+  {
+    patient_id: 'P-0004',
+    full_name: 'Daniel Njoroge',
+    date_of_birth: '2001-01-09',
+    gender: 'Male',
+    blood_type: 'AB-',
+    address: '5 Thika Rd, Thika',
+    contact_phone: '+254703444555',
+    contact_email: 'daniel.njoroge@example.com',
+    emergency_contact: 'Samuel Njoroge (+254703999000)',
+    status: 'Active',
+  },
+  {
+    patient_id: 'P-0005',
+    full_name: 'Mary Wanjiru',
+    date_of_birth: '1958-09-17',
+    gender: 'Female',
+    blood_type: 'O-',
+    address: '9 Eldoret Ln, Eldoret',
+    contact_phone: '+254704555666',
+    contact_email: 'mary.wanjiru@example.com',
+    emergency_contact: 'Jane Wanjiru (+254704000111)',
+    status: 'Discharged',
+  }
+];
+
+export default seededPatients;
