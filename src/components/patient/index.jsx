@@ -56,5 +56,8 @@ export default function PatientDirectory() {
     </div>
   );
 }
+
+// Backwards-compatible stub used by the page-level placeholder
+export const PatientDetailStub = PatientDirectory;
  
  
