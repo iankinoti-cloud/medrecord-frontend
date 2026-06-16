@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { StaffTable } from './StaffTable'
 import { AuditLogTable } from './AuditLogTable'
 import { RegisterPatientForm } from './RegisterPatientForm'
+import { LabPortal } from '../lab'
 
 const TABS = [
   { id: 'staff',    label: 'Manage Staff' },
+  {id: "lab", label: "Lab Portal"},
   { id: 'audit',    label: 'Security Audit Log' },
   { id: 'register', label: 'Register Patient' },
 ]
@@ -34,6 +36,7 @@ export function AdminPanel() {
       {/* Tab content */}
       <div className="animate-fade-in">
         {activeTab === 'staff'    && <StaffTable />}
+        {activeTab === "lab"      && <LabPortal />}
         {activeTab === 'audit'    && <AuditLogTable />}
         {activeTab === 'register' && <RegisterPatientForm />}
       </div>
