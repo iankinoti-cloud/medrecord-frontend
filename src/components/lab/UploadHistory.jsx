@@ -2,7 +2,38 @@ import { useState, useEffect, useCallback } from 'react'
 import { labService } from '../../services/labService'
 import { LoadingSpinner } from '../shared/LoadingSpinner'
 import { ErrorMessage } from '../shared/ErrorMessage'
-import { FileText, Download, Eye, Calendar, User, Search, ChevronDown, ChevronUp } from 'lucide-react'
+
+// SVG Icon components
+const EyeIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+    </svg>
+)
+
+const DownloadIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    </svg>
+)
+
+const SearchIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+)
+
+const ChevronUpIcon = ({ className = "w-3 h-3" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+    </svg>
+)
+
+const ChevronDownIcon = ({ className = "w-3 h-3" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    </svg>
+)
 
 const STATUS_COLORS = {
     pending: 'bg-amber-100 text-amber-600',
@@ -70,9 +101,7 @@ export function UploadHistory() {
     }
 
     const handleDownload = (upload) => {
-        // Implement download functionality
         console.log('Downloading:', upload.id)
-        // window.open(upload.file_url, '_blank')
     }
 
     if (loading) return <LoadingSpinner label="Loading upload history..." />
@@ -87,10 +116,9 @@ export function UploadHistory() {
                 </p>
             </div>
 
-            {/* Search and Filter */}
             <div className="flex flex-wrap gap-3">
                 <div className="relative flex-1 max-w-md">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                     <input
                         type="text"
                         placeholder="Search by patient, test, or report ID..."
@@ -118,7 +146,6 @@ export function UploadHistory() {
                 </button>
             </div>
 
-            {/* Uploads Table */}
             <div className="bg-surface rounded-xl shadow-card overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full">
@@ -131,7 +158,7 @@ export function UploadHistory() {
                                     <div className="flex items-center gap-1">
                                         Date
                                         {sortField === 'created_at' && (
-                                            sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+                                            sortDirection === 'asc' ? <ChevronUpIcon /> : <ChevronDownIcon />
                                         )}
                                     </div>
                                 </th>
@@ -142,7 +169,7 @@ export function UploadHistory() {
                                     <div className="flex items-center gap-1">
                                         Patient
                                         {sortField === 'patient_name' && (
-                                            sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+                                            sortDirection === 'asc' ? <ChevronUpIcon /> : <ChevronDownIcon />
                                         )}
                                     </div>
                                 </th>
@@ -153,7 +180,7 @@ export function UploadHistory() {
                                     <div className="flex items-center gap-1">
                                         Test Type
                                         {sortField === 'test_type' && (
-                                            sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+                                            sortDirection === 'asc' ? <ChevronUpIcon /> : <ChevronDownIcon />
                                         )}
                                     </div>
                                 </th>
@@ -164,7 +191,7 @@ export function UploadHistory() {
                                     <div className="flex items-center gap-1">
                                         Report ID
                                         {sortField === 'report_id' && (
-                                            sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+                                            sortDirection === 'asc' ? <ChevronUpIcon /> : <ChevronDownIcon />
                                         )}
                                     </div>
                                 </th>
@@ -175,7 +202,7 @@ export function UploadHistory() {
                                     <div className="flex items-center gap-1">
                                         Status
                                         {sortField === 'status' && (
-                                            sortDirection === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+                                            sortDirection === 'asc' ? <ChevronUpIcon /> : <ChevronDownIcon />
                                         )}
                                     </div>
                                 </th>
@@ -215,7 +242,7 @@ export function UploadHistory() {
                                                 className="p-1.5 text-aegean-600 hover:text-aegean-800 hover:bg-aegean-50 rounded-lg transition-all"
                                                 title="View Details"
                                             >
-                                                <Eye className="w-4 h-4" />
+                                                <EyeIcon />
                                             </button>
                                             {upload.status === 'completed' && (
                                                 <button
@@ -223,7 +250,7 @@ export function UploadHistory() {
                                                     className="p-1.5 text-muted hover:text-aegean-600 hover:bg-aegean-50 rounded-lg transition-all"
                                                     title="Download"
                                                 >
-                                                    <Download className="w-4 h-4" />
+                                                    <DownloadIcon />
                                                 </button>
                                             )}
                                         </div>
@@ -310,14 +337,14 @@ export function UploadHistory() {
                                         onClick={() => handleDownload(selectedUpload)}
                                         className="flex-1 px-4 py-2 bg-aegean-800 text-white rounded-lg hover:bg-aegean-900 transition-colors flex items-center justify-center gap-2"
                                     >
-                                        <Download className="w-4 h-4" />
+                                        <DownloadIcon />
                                         Download Report
                                     </button>
                                     <button
                                         onClick={() => window.open(selectedUpload.file_url, '_blank')}
                                         className="flex-1 px-4 py-2 border border-cloud rounded-lg text-sm text-midnight hover:bg-cloud transition-colors flex items-center justify-center gap-2"
                                     >
-                                        <Eye className="w-4 h-4" />
+                                        <EyeIcon />
                                         View Report
                                     </button>
                                 </div>

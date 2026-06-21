@@ -1,7 +1,25 @@
 import { useState, useEffect } from 'react'
 import { patientService } from '../../services/patientService'
 import { LoadingSpinner } from '../shared/LoadingSpinner'
-import { Search, User, X } from 'lucide-react'
+
+// SVG Icon components
+const SearchIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+)
+
+const XIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    </svg>
+)
+
+const UserIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+    </svg>
+)
 
 export function PatientIdLookup({
     onPatientSelect,
@@ -15,7 +33,6 @@ export function PatientIdLookup({
     const [selectedPatient, setSelectedPatient] = useState(null)
 
     useEffect(() => {
-        // If selectedPatientId is provided externally, fetch patient details
         if (selectedPatientId && !selectedPatient) {
             fetchPatientDetails(selectedPatientId)
         }
@@ -86,7 +103,7 @@ export function PatientIdLookup({
         <div className="relative">
             <div className="flex gap-2">
                 <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
+                    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
                     <input
                         type="text"
                         value={searchQuery}
@@ -113,12 +130,11 @@ export function PatientIdLookup({
                         className="px-3 py-2 bg-coral-50 text-coral-500 rounded-lg hover:bg-coral-100 transition-all"
                         disabled={disabled}
                     >
-                        <X className="w-4 h-4" />
+                        <XIcon />
                     </button>
                 )}
             </div>
 
-            {/* Search Results Dropdown */}
             {showResults && !disabled && (
                 <div className="absolute z-10 mt-1 w-full bg-surface rounded-lg shadow-lg border border-cloud max-h-60 overflow-y-auto">
                     {isSearching ? (
@@ -134,7 +150,7 @@ export function PatientIdLookup({
                                 className="w-full text-left px-4 py-3 hover:bg-cloud/30 transition-colors flex items-center gap-3 border-b border-cloud last:border-0"
                             >
                                 <div className="w-8 h-8 rounded-full bg-aegean-100 flex items-center justify-center flex-shrink-0">
-                                    <User className="w-4 h-4 text-aegean-600" />
+                                    <UserIcon className="w-4 h-4 text-aegean-600" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <div className="font-medium text-midnight truncate">
@@ -154,7 +170,6 @@ export function PatientIdLookup({
                 </div>
             )}
 
-            {/* Selected Patient Display */}
             {selectedPatient && (
                 <div className="mt-2 p-3 bg-cloud/30 rounded-lg border border-cloud">
                     <div className="flex items-center gap-3">

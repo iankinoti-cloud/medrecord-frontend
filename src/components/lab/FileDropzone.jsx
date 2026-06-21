@@ -1,10 +1,22 @@
 import { useState, useRef } from 'react'
-import { Upload, File, X, AlertCircle } from 'lucide-react'
+
+// SVG Icon components
+const UploadIcon = ({ className = "w-6 h-6" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+    </svg>
+)
+
+const AlertCircleIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+)
 
 export function FileDropzone({
     onFileSelect,
     acceptedFileTypes = ['application/pdf'],
-    maxSize = 5 * 1024 * 1024, // 5MB default
+    maxSize = 5 * 1024 * 1024,
     disabled = false,
 }) {
     const [isDragging, setIsDragging] = useState(false)
@@ -14,14 +26,12 @@ export function FileDropzone({
     const validateFile = (file) => {
         setError('')
 
-        // Check file type
         if (!acceptedFileTypes.includes(file.type)) {
             const errorMsg = `Invalid file type. Please upload ${acceptedFileTypes.join(', ')} files.`
             setError(errorMsg)
             return false
         }
 
-        // Check file size
         if (file.size > maxSize) {
             const maxSizeMB = (maxSize / 1024 / 1024).toFixed(1)
             setError(`File size exceeds ${maxSizeMB}MB limit. Please compress or choose a smaller file.`)
@@ -38,7 +48,6 @@ export function FileDropzone({
         if (validateFile(file)) {
             onFileSelect?.(file)
         } else {
-            // Clear the input so the same file can be re-selected
             e.target.value = ''
         }
     }
@@ -109,10 +118,7 @@ export function FileDropzone({
             p-3 rounded-full transition-colors
             ${isDragging ? 'bg-aegean-100' : 'bg-cloud'}
           `}>
-                        <Upload className={`
-              w-6 h-6
-              ${isDragging ? 'text-aegean-600' : 'text-muted'}
-            `} />
+                        <UploadIcon className={isDragging ? 'text-aegean-600' : 'text-muted'} />
                     </div>
 
                     <div>
@@ -128,7 +134,7 @@ export function FileDropzone({
 
             {error && (
                 <div className="p-2 bg-coral-50 rounded-lg text-sm text-coral-500 flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    <AlertCircleIcon />
                     {error}
                 </div>
             )}

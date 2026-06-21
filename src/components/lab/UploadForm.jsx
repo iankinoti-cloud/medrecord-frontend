@@ -1,9 +1,27 @@
-import { useState } from 'react';
-import { FileDropzone } from './FileDropzone';
-import { PatientIdLookup } from './PatientIdLookup';
-import { labService } from '../services/labService';
-import {LoadingSpinner} from "../shared/LoadingSpinner";
-import { AlertCircle, CheckCircle, Xcircle} from "lucide-react"
+import { useState } from 'react'
+import { labService } from '../../services/labService'
+import { PatientIdLookup } from './PatientIdLookup'
+import { FileDropzone } from './FileDropzone'
+import { LoadingSpinner } from '../shared/LoadingSpinner'
+
+// SVG Icon components (no lucide-react dependency)
+const AlertCircleIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+)
+
+const CheckCircleIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+)
+
+const XCircleIcon = ({ className = "w-4 h-4" }) => (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+)
 
 const TEST_TYPES = [
     'Complete Blood Count',
@@ -39,7 +57,7 @@ export function UploadForm({ onUploadSuccess }) {
     const [file, setFile] = useState(null)
     const [fileError, setFileError] = useState('')
     const [isUploading, setIsUploading] = useState(false)
-    const [uploadStatus, setUploadStatus] = useState(null) // 'success' | 'error'
+    const [uploadStatus, setUploadStatus] = useState(null)
     const [statusMessage, setStatusMessage] = useState('')
 
     const handlePatientSelect = (patient) => {
@@ -54,14 +72,12 @@ export function UploadForm({ onUploadSuccess }) {
         setFileError('')
         setUploadStatus(null)
 
-        // Validate file size (5MB max)
         if (selectedFile.size > 5 * 1024 * 1024) {
             setFileError('File size exceeds 5MB limit. Please compress or choose a smaller file.')
             setFile(null)
             return false
         }
 
-        // Validate file type (PDF only)
         if (selectedFile.type !== 'application/pdf') {
             setFileError('Only PDF files are accepted. Please upload a PDF document.')
             setFile(null)
@@ -75,7 +91,6 @@ export function UploadForm({ onUploadSuccess }) {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        // Validation
         if (!formData.patientId) {
             setUploadStatus('error')
             setStatusMessage('Please select a patient.')
@@ -119,7 +134,6 @@ export function UploadForm({ onUploadSuccess }) {
             setUploadStatus('success')
             setStatusMessage(`Report uploaded successfully! ID: ${result.id}`)
 
-            // Reset form after successful upload
             setFormData({
                 patientId: '',
                 patientName: '',
@@ -129,7 +143,6 @@ export function UploadForm({ onUploadSuccess }) {
             })
             setFile(null)
 
-            // Notify parent
             if (onUploadSuccess) {
                 setTimeout(onUploadSuccess, 1500)
             }
@@ -161,23 +174,21 @@ export function UploadForm({ onUploadSuccess }) {
                 Upload Lab Report
             </h3>
 
-            {/* Status Messages */}
             {uploadStatus === 'success' && (
                 <div className="mb-4 p-3 bg-emerald-100 text-emerald-600 text-sm rounded-lg flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                    <CheckCircleIcon />
                     {statusMessage}
                 </div>
             )}
 
             {uploadStatus === 'error' && (
                 <div className="mb-4 p-3 bg-coral-100 text-coral-500 text-sm rounded-lg flex items-center gap-2">
-                    <XCircle className="w-4 h-4 flex-shrink-0" />
+                    <XCircleIcon />
                     {statusMessage}
                 </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Patient Lookup */}
                 <div>
                     <label className="block text-sm font-medium text-midnight mb-1.5">
                         Patient *
@@ -195,7 +206,6 @@ export function UploadForm({ onUploadSuccess }) {
                     )}
                 </div>
 
-                {/* Test Type */}
                 <div>
                     <label className="block text-sm font-medium text-midnight mb-1.5">
                         Test Type *
@@ -214,7 +224,6 @@ export function UploadForm({ onUploadSuccess }) {
                     </select>
                 </div>
 
-                {/* Report ID */}
                 <div>
                     <label className="block text-sm font-medium text-midnight mb-1.5">
                         Report ID *
@@ -231,7 +240,6 @@ export function UploadForm({ onUploadSuccess }) {
                     />
                 </div>
 
-                {/* File Dropzone */}
                 <div>
                     <label className="block text-sm font-medium text-midnight mb-1.5">
                         Upload PDF *
@@ -240,24 +248,23 @@ export function UploadForm({ onUploadSuccess }) {
                     <FileDropzone
                         onFileSelect={handleFileChange}
                         acceptedFileTypes={['application/pdf']}
-                        maxSize={5 * 1024 * 1024} // 5MB
+                        maxSize={5 * 1024 * 1024}
                         disabled={isUploading}
                     />
                     {file && (
                         <div className="mt-2 p-2 bg-emerald-50 rounded-lg text-sm text-emerald-600 flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4" />
+                            <CheckCircleIcon />
                             File ready: {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
                         </div>
                     )}
                     {fileError && (
                         <div className="mt-2 p-2 bg-coral-50 rounded-lg text-sm text-coral-500 flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4" />
+                            <AlertCircleIcon />
                             {fileError}
                         </div>
                     )}
                 </div>
 
-                {/* Notes */}
                 <div>
                     <label className="block text-sm font-medium text-midnight mb-1.5">
                         Notes
@@ -273,7 +280,6 @@ export function UploadForm({ onUploadSuccess }) {
                     />
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex gap-3 pt-4 border-t border-cloud">
                     <button
                         type="button"
